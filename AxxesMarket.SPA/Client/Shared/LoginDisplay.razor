@@ -2,7 +2,7 @@
 
 <div class="user-info ml-3">
     <span>@Translator["SignOut"]</span>
-    @*<AuthorizeView>
+    <AuthorizeView>
         <Authorizing>
             <text>...</text>
         </Authorizing>
@@ -15,7 +15,7 @@
         <NotAuthorized>
             <a class="sign-in" href="bff/login">@Translator["LogIn"]</a>
         </NotAuthorized>
-    </AuthorizeView>*@
+    </AuthorizeView>
 </div>
 
 @code {

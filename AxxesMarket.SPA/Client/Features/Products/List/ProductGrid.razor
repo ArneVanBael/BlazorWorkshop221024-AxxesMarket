@@ -23,6 +23,8 @@
     // load products
     private ProductsState _state => GetState<ProductsState>();
 
+    [CascadingParameter]public Task<AuthenticationState> AuthenticationState { get; set; }
+
     protected override async Task OnInitializedAsync()
     {
         if(_state.Products is null || !_state.Products.Any()) await Mediator.Send(new ProductsState.GetProductsAction());
