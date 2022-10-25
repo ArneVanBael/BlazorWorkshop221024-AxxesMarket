@@ -5,6 +5,7 @@ namespace AxxesMarket.SPA.Client.Features.Profile.Store;
 
 public partial class ProfileState
 {
+    public class GetUserSettingsAction : IAction { }
     public class GetMyProductsAction : IAction { }
     public class CreateProductAction : IAction
     {

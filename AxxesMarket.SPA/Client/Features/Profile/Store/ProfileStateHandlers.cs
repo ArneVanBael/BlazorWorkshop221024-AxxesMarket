@@ -8,7 +8,32 @@ namespace AxxesMarket.SPA.Client.Features.Profile.Store;
 
 public partial class ProfileState
 {
-   
+    public class GetUserSettingsHandler : ActionHandler<GetUserSettingsAction>
+    {
+        private BlazorHttpClient _httpClient;
+
+        public GetUserSettingsHandler(IStore aStore, BlazorHttpClient blazorHttpClient) : base(aStore)
+        {
+            _httpClient = blazorHttpClient;
+        }
+
+        public override async Task<Unit> Handle(GetUserSettingsAction aAction, CancellationToken aCancellationToken)
+        {
+            var settings = new UserSettings
+            {
+                UserId = Guid.NewGuid(),
+                Address = "test adres",
+                Email = "email",
+                FirstName = "Arne",
+                LastName = "Van Bael"
+            };
+
+            var state = Store.GetState<ProfileState>();
+            state.AddSettings(settings);
+
+            return await Unit.Task;
+        }
+    }
 
     public class GetMyProductsHandler : ActionHandler<GetMyProductsAction>
     {

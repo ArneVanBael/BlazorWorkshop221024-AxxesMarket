@@ -31,6 +31,29 @@
 
     private async void OnEditProduct(Guid id)
     {
+        // get product with id
+        _isLoading = true;
+        _createEditModalVisible = true;
+
+        var productResponse = await httpClient.GetAsync<ProductDetailResponse>(ApiRoutes.GetProduct(id));
+        if (!productResponse.Success)
+        {
+            _isLoading = false;
+            return;
+        }
+
+        _itemToEdit = new CreateEditProductRequest
+            {
+                Description = productResponse.Result.Description,
+                DetailedDescription = productResponse.Result.DetailedDescription,
+                HasWaranty = productResponse.Result.HasWaranty,
+                Name = productResponse.Result.Name,
+                Id = productResponse.Result.Id,
+                Price = productResponse.Result.Price,
+                PurchageDate = productResponse.Result.PurchageDate  
+            };
+        _isLoading = false;
+        StateHasChanged();
     }
 
     private void OnCancel()
@@ -40,7 +63,22 @@
     }
 
     private async void OnValidSubmit(CreateEditProductRequest request)
-    { 
+    {
+        _isSaving = true;
+
+        if (request.Id is null)
+        {
+            await Mediator.Send(new ProfileState.CreateProductAction(request));
+        }
+        else
+        {
+            await Mediator.Send(new ProfileState.UpdateProductAction(request));
+        }
+
+        _createEditModalVisible = false;
+        _itemToEdit = null;
+        _isSaving = false;
+        StateHasChanged();
     }
 
     private void OnVisibleChanged(bool visible)

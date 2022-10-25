@@ -32,4 +32,34 @@ public partial class ApplicationState
             IsOpen = isOpen;
         }
     }
+
+    public class AddSuccessToastAction : IAction
+    {
+        public string Text { get; set; }
+
+        public AddSuccessToastAction(string text)
+        {
+            Text = text;
+        }
+    }
+
+    public class AddErrorToastAction : IAction
+    {
+        public string Text { get; set; }
+
+        public AddErrorToastAction(string text)
+        {
+            Text = text;
+        }
+    }
+
+    public class RemoveToastAction : IAction
+    {
+        public Guid Id { get; set; }
+
+        public RemoveToastAction(Guid id)
+        {
+            Id = id;
+        }
+    }
 }

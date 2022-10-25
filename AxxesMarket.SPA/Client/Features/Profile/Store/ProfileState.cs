@@ -8,11 +8,14 @@ namespace AxxesMarket.SPA.Client.Features.Profile.Store;
 public partial class ProfileState : State<ProfileState>
 {
     private List<ProductResponse> _myProducts = new();
-    public IReadOnlyCollection<ProductResponse> MyProducts => _myProducts;
+    public IReadOnlyCollection<ProductResponse> MyProducts => new ReadOnlyCollection<ProductResponse>(_myProducts);
+    public UserSettings UserSettings { get; private set; }
 
     public override void Initialize()
     {
     }
+
+    public void AddSettings(UserSettings settings) => UserSettings = settings;
 
     public void AddProducts(IEnumerable<ProductResponse> products, bool clearProducts = false)
     {

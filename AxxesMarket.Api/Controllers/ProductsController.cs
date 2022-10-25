@@ -49,24 +49,24 @@ public class ProductsController : BaseApiController
         }
     }
 
-    //[HttpPost]
-    //[Authorize]
-    //public async Task<IActionResult> CreateProduct([FromBody] CreateEditProductRequest request)
-    //{
-    //    var newId = _unitOfWork.ProductRepository.CreateProduct(request.MapToProduct());
-    //    await _unitOfWork.SaveChangesAsync();
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> CreateProduct([FromBody] CreateEditProductRequest request)
+    {
+        var newId = _unitOfWork.ProductRepository.CreateProduct(request.MapToProduct());
+        await _unitOfWork.SaveChangesAsync();
 
-    //    return Ok(new JsonResponse<Guid> { Result = newId });
-    //}
+        return Ok(new JsonResponse<Guid> { Result = newId });
+    }
 
-    //[HttpPut("{id}")]
-    //public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] CreateEditProductRequest request)
-    //{
-    //    await _unitOfWork.ProductRepository.UpdateProduct(request.MapToProduct());
-    //    await _unitOfWork.SaveChangesAsync();
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] CreateEditProductRequest request)
+    {
+        await _unitOfWork.ProductRepository.UpdateProduct(request.MapToProduct());
+        await _unitOfWork.SaveChangesAsync();
 
-    //    return Ok(new JsonResponse<Guid> { Result = id });
-    //}
+        return Ok(new JsonResponse<Guid> { Result = id });
+    }
 
     [HttpPut("{id}/buy")]
     [Authorize]

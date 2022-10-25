@@ -18,21 +18,21 @@ public static class ProductMappingExtensions
         };
     }
 
-    //public static Product MapToProduct(this CreateEditProductRequest request)
-    //{
-    //    if (request is null) throw new ArgumentNullException(nameof(request));
+    public static Product MapToProduct(this CreateEditProductRequest request)
+    {
+        if (request is null) throw new ArgumentNullException(nameof(request));
 
-    //    return Product.Create(
-    //        request.Id,
-    //        request.Name,
-    //        request.Description, 
-    //        request.DetailedDescription, 
-    //        request.PurchageDate!.Value, 
-    //        request.HasWaranty, 
-    //        request.Price!.Value, 
-    //        null,
-    //        "https://source.unsplash.com/1600x900/?bicycle");
-    //}
+        return Product.Create(
+            request.Id,
+            request.Name,
+            request.Description,
+            request.DetailedDescription,
+            request.PurchageDate!.Value,
+            request.HasWaranty,
+            request.Price!.Value,
+            null,
+            "https://source.unsplash.com/1600x900/?bicycle");
+    }
 
     public static ProductDetailResponse MapToDetailProductResponse(this Product product)
     {
