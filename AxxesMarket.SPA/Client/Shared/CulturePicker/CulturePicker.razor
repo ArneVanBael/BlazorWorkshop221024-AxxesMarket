@@ -1,5 +1,6 @@
 ﻿@inject IJSRuntime JSRuntime
 @inject NavigationManager NavigationManager
+@inject CultureState service
 <div>
     <span @onclick=@(() => SetCulture("nl-BE")) class="mr-2 clickable @(_culture == "nl-BE" ? "font-weight-bold text-primary" : "")">NL</span>
     <span @onclick=@(() => SetCulture("en-US")) class="clickable @(_culture == "en-US" ? "font-weight-bold text-primary" : "") " >EN</span>
@@ -14,6 +15,10 @@
 
     private async Task SetCulture(string culture) {
         await JSRuntime.InvokeVoidAsync("setCookie", ".AspNetCore.Culture", culture, 100);
-        NavigationManager.NavigateTo(NavigationManager.Uri, true); // refresh the page
+        Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(culture);
+        Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(culture);
+        _culture = culture;
+        service.SetCulture(culture);
+        //NavigationManager.NavigateTo(NavigationManager.Uri, true); // refresh the page
     }
 }

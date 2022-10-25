@@ -17,17 +17,22 @@ public class BlazorHttpClient
 
     public async Task<JsonResponse<T>> GetAsync<T>(string route, string? successMessage = null)
     {
-        throw new NotImplementedException();        
+        var httpResponse = await _httpClient.GetFromJsonAsync<JsonResponse<T>>(route);
+        return httpResponse;
     }
 
     public async Task<JsonResponse<TResponse>> PostAsync<TBody, TResponse>(string route, TBody body, string? successMessage = null)
     {
-        throw new NotImplementedException();
+        var httpResponse = await _httpClient.PostAsJsonAsync(route, body);
+        var response = await httpResponse.Content.ReadFromJsonAsync<JsonResponse<TResponse>>();
+        return response;
     }
 
     public async Task<JsonResponse<TResponse>> PutAsync<TBody, TResponse>(string route, TBody body, string? successMessage = null)
     {
-        throw new NotImplementedException();
+        var httpResponse = await _httpClient.PutAsJsonAsync(route, body);
+        var response = await httpResponse.Content.ReadFromJsonAsync<JsonResponse<TResponse>>();
+        return response;
     }
 
     private async Task HandleResponse(JsonResponse response, string? SuccessMessage = null)

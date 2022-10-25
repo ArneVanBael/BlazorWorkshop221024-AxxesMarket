@@ -1,11 +1,14 @@
 using AxxesMarket.SPA.Client;
 using AxxesMarket.SPA.Client.BFF;
+using AxxesMarket.SPA.Client.Store;
 using AxxesMarket.SPA.Client.Utils;
+using BlazorState;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 using System.Globalization;
+using System.Reflection;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -23,8 +26,18 @@ builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().
 
 // blazor state setup
 
+builder.Services.AddBlazorState(opt =>
+{
+    opt.UseReduxDevToolsBehavior = true;
+    opt.Assemblies = new Assembly[]
+    {
+        typeof(ApplicationState).Assembly,
+    };
+});
+
 builder.Services.AddScoped<Translator>();
 builder.Services.AddScoped<BlazorHttpClient>();
+builder.Services.AddScoped<CultureState>();
 
 builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
 

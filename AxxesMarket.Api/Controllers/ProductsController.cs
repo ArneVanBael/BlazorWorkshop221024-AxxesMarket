@@ -60,7 +60,6 @@ public class ProductsController : BaseApiController
     //}
 
     //[HttpPut("{id}")]
-    //[Authorize]
     //public async Task<IActionResult> UpdateProduct(Guid id, [FromBody] CreateEditProductRequest request)
     //{
     //    await _unitOfWork.ProductRepository.UpdateProduct(request.MapToProduct());
