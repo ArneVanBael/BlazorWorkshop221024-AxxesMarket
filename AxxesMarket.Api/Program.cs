@@ -21,19 +21,19 @@ builder.Services.AddCors(opt =>
     });
 });
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-           .AddJwtBearer(options =>
-           {
-               // base-address of your identityserver
-               options.Authority = "https://demo.duendesoftware.com";
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//           .AddJwtBearer(options =>
+//           {
+//               // base-address of your identityserver
+//               options.Authority = "https://demo.duendesoftware.com";
 
-               // audience is optional, make sure you read the following paragraphs
-               // to understand your options
-               options.TokenValidationParameters.ValidateAudience = false;
+//               // audience is optional, make sure you read the following paragraphs
+//               // to understand your options
+//               options.TokenValidationParameters.ValidateAudience = false;
 
-               // it's recommended to check the type header to avoid "JWT confusion" attacks
-               options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
-           });
+//               // it's recommended to check the type header to avoid "JWT confusion" attacks
+//               options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+//           });
 
 var app = builder.Build();
 
@@ -51,6 +51,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+var supportedCultures = new[] { "nl-BE", "en-US" };
+var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[1])
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization(localizationOptions);
 
 app.UseAuthentication();
 app.UseAuthorization();

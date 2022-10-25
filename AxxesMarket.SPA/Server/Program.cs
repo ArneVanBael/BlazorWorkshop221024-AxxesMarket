@@ -8,40 +8,40 @@ builder.Services.AddBff()
     .AddServerSideSessions()
     .AddRemoteApis();
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultScheme = "cookie";
-    options.DefaultChallengeScheme = "oidc";
-    options.DefaultSignOutScheme = "oidc";
-})
-    .AddCookie("cookie", options =>
-    {
-        options.Cookie.Name = "__Host-blazor";
-        options.Cookie.SameSite = SameSiteMode.Strict;
-    })
-    .AddOpenIdConnect("oidc", options =>
-    {
-        //options.Authority = "https://localhost:7138/";
-        options.Authority = "https://demo.duendesoftware.com/";
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultScheme = "cookie";
+//    options.DefaultChallengeScheme = "oidc";
+//    options.DefaultSignOutScheme = "oidc";
+//})
+//    .AddCookie("cookie", options =>
+//    {
+//        options.Cookie.Name = "__Host-blazor";
+//        options.Cookie.SameSite = SameSiteMode.Strict;
+//    })
+//    .AddOpenIdConnect("oidc", options =>
+//    {
+//        //options.Authority = "https://localhost:7138/";
+//        options.Authority = "https://demo.duendesoftware.com/";
 
-        // confidential client using code flow + PKCE
-        //options.ClientId = "AxxesMarket.SPA";
-        options.ClientId = "interactive.confidential";
-        options.ClientSecret = "secret";
-        options.ResponseType = "code";
-        options.ResponseMode = "query";
+//        // confidential client using code flow + PKCE
+//        //options.ClientId = "AxxesMarket.SPA";
+//        options.ClientId = "interactive.confidential";
+//        options.ClientSecret = "secret";
+//        options.ResponseType = "code";
+//        options.ResponseMode = "query";
 
-        options.MapInboundClaims = false;
-        options.GetClaimsFromUserInfoEndpoint = true;
-        options.SaveTokens = true;
+//        options.MapInboundClaims = false;
+//        options.GetClaimsFromUserInfoEndpoint = true;
+//        options.SaveTokens = true;
 
-        // request scopes + refresh tokens
-        options.Scope.Clear();
-        options.Scope.Add("openid");
-        options.Scope.Add("profile");
-        options.Scope.Add("api");
-        options.Scope.Add("offline_access");
-    });
+//        // request scopes + refresh tokens
+//        options.Scope.Clear();
+//        options.Scope.Add("openid");
+//        options.Scope.Add("profile");
+//        options.Scope.Add("api");
+//        options.Scope.Add("offline_access");
+//    });
 
 var app = builder.Build();
 

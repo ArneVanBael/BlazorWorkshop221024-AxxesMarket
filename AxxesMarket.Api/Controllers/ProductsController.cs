@@ -21,11 +21,13 @@ public class ProductsController : BaseApiController
     [HttpGet]
     public async Task<IActionResult> GetAllProducts()
     {
-        var request = HttpContext.Request;
+        var culture = Thread.CurrentThread.CurrentCulture;
+        var uiCulture = Thread.CurrentThread.CurrentUICulture;
+
         var products = await _unitOfWork.ProductRepository.GetAllProductsAsync();
         return Ok(new JsonResponse<IEnumerable<ProductResponse>> { Result = products.Select(x => x.MapToProductResponse()) });
     }
-
+  
     [HttpGet("my")]
     [Authorize]
     public async Task<IActionResult> GetMyProducts()

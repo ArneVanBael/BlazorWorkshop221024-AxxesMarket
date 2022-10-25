@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Translations.en-US.resx" />
+    <Content Include="Resources\Translations.nl-BE.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0.10" />
     <PackageReference Include="Blazor-State" Version="5.0.3" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
